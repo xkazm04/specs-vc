@@ -22844,6 +22844,7 @@ paths:
               - KCS
               - BSC
               - ONE
+              - KLAY
               - XDC
       description: |
         <h4>2 credits per API call.</h4><br/>
@@ -29999,6 +30000,3381 @@ paths:
       security:
         - X-Api-Key: []
       summary: Deploy Celo ERC-20 Smart Contract to Blockchain and Ledger
+      tags:
+        - Deploy blockchain token
+  /v3/offchain/klaytn/erc20/deploy:
+    post:
+      description: |
+        <h4>4 credits per API call.</h4><br/>
+        <p>Deploy Klay ERC20 Smart Contract. This is a helper method, which is combination of
+        <a href="#operation/registerErc20Token">Register new ERC20 token in the ledger</a> and <a href="#operation/Erc20Deploy">Deploy blockchain ERC20</a>.<br/>
+        <br/>
+        <br/>
+        After deploying a contract to blockchain, the contract address will become available and must be stored within Tatum. Otherwise, it will not be possible to interact with it and starts automatic blockchain synchronization.<br/>
+        This operation needs the private key of the blockchain address. Every time the funds are transferred, the transaction must be signed with the corresponding private key.
+        No one should ever send it's own private keys to the internet because there is a strong possibility of stealing keys and losing funds. In this method, it is possible to enter privateKey
+        or signatureId. PrivateKey should be used only for quick development on testnet versions of blockchain when there is no risk of losing funds. In production,
+        <a href="https://github.com/tatumio/tatum-kms" target="_blank">Tatum KMS</a> should be used for the highest security standards, and signatureId should be present in the request.
+        Alternatively, using the Tatum client library for supported languages.
+        </p>
+      operationId: KlayDeployErc20
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    address:
+                      description: 'Address on Ethereum blockchain, where all initial supply will be stored. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 42
+                      minLength: 42
+                      example: '0x687422eEA2cB73B5d3e242bA5456b782919AFc85'
+                      type: string
+                    mnemonic:
+                      maxLength: 500
+                      minLength: 1
+                      description: 'Mnemonic to generate private key for the deploy account of ERC20, from which the gas will be paid (index will be used). If address is not present, mnemonic is used to generate xpub and index is set to 1. Either mnemonic and index or privateKey and address must be present, not both.'
+                      example: urge pulp usage sister evidence arrest palm math please chief egg abuse
+                      type: string
+                    index:
+                      description: derivation index of address to pay for deployment of ERC20
+                      example: 0
+                      type: integer
+                      maximum: 2147483647
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - address
+                    - mnemonic
+                    - index
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    xpub:
+                      description: 'Extended public key (xpub), from which address, where all initial supply will be stored, will be generated. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 150
+                      minLength: 1
+                      example: xpub6EsCk1uU6cJzqvP9CdsTiJwT2rF748YkPnhv5Qo8q44DG7nn2vbyt48YRsNSUYS44jFCW9gwvD9kLQu9AuqXpTpM1c5hgg9PsuBLdeNncid
+                      type: string
+                    derivationIndex:
+                      description: Derivation index for xpub to generate specific deposit address.
+                      format: int32
+                      example: 0
+                      type: integer
+                      maximum: 2147483647
+                    mnemonic:
+                      maxLength: 500
+                      minLength: 1
+                      description: 'Mnemonic to generate private key for the deploy account of ERC20, from which the gas will be paid (index will be used). If address is not present, mnemonic is used to generate xpub and index is set to 1. Either mnemonic and index or privateKey and address must be present, not both.'
+                      example: urge pulp usage sister evidence arrest palm math please chief egg abuse
+                      type: string
+                    index:
+                      description: derivation index of address to pay for deployment of ERC20
+                      example: 0
+                      type: integer
+                      maximum: 2147483647
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - xpub
+                    - derivationIndex
+                    - mnemonic
+                    - index
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    address:
+                      description: 'Address on Ethereum blockchain, where all initial supply will be stored. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 42
+                      minLength: 42
+                      example: '0x687422eEA2cB73B5d3e242bA5456b782919AFc85'
+                      type: string
+                    privateKey:
+                      description: 'Private key of Ethereum account address, from which gas for deployment of ERC20 will be paid. Private key, mnemonic or signature Id must be present.'
+                      type: string
+                      maxLength: 66
+                      minLength: 66
+                      example: '0x05e150c73f1920ec14caa1e0b6aa09940899678051a78542840c2668ce5080c2'
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - privateKey
+                    - address
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    xpub:
+                      description: 'Extended public key (xpub), from which address, where all initial supply will be stored, will be generated. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 150
+                      minLength: 1
+                      example: xpub6EsCk1uU6cJzqvP9CdsTiJwT2rF748YkPnhv5Qo8q44DG7nn2vbyt48YRsNSUYS44jFCW9gwvD9kLQu9AuqXpTpM1c5hgg9PsuBLdeNncid
+                      type: string
+                    derivationIndex:
+                      description: Derivation index for xpub to generate specific deposit address.
+                      format: int32
+                      example: 0
+                      type: integer
+                      maximum: 2147483647
+                    privateKey:
+                      description: 'Private key of Ethereum account address, from which gas for deployment of ERC20 will be paid. Private key, mnemonic or signature Id must be present.'
+                      type: string
+                      maxLength: 66
+                      minLength: 66
+                      example: '0x05e150c73f1920ec14caa1e0b6aa09940899678051a78542840c2668ce5080c2'
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - xpub
+                    - derivationIndex
+                    - privateKey
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    address:
+                      description: 'Address on Ethereum blockchain, where all initial supply will be stored. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 42
+                      minLength: 42
+                      example: '0x687422eEA2cB73B5d3e242bA5456b782919AFc85'
+                      type: string
+                    signatureId:
+                      type: string
+                      minLength: 36
+                      maxLength: 36
+                      format: uuid
+                      example: 26d3883e-4e17-48b3-a0ee-09a3e484ac83
+                      description: |
+                        Identifier of the mnemonic / private key associated in signing application.
+                        When hash identifies mnemonic, index must be present to represent specific account to pay from.
+                        Private key, mnemonic or signature Id must be present.
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - address
+                    - signatureId
+                - type: object
+                  properties:
+                    symbol:
+                      description: Name of the ERC20 token - stored as a symbol on Blockchain
+                      example: MT
+                      maxLength: 30
+                      pattern: '^[a-zA-Z0-9_]+$'
+                      minLength: 1
+                      type: string
+                    supply:
+                      description: max supply of ERC20 token.
+                      maxLength: 38
+                      example: '10000000'
+                      pattern: '^[+]?((\d+(\.\d*)?)|(\.\d+))$'
+                      type: string
+                    description:
+                      description: Description of the ERC20 token
+                      example: My ERC20 Token
+                      maxLength: 100
+                      minLength: 1
+                      type: string
+                    basePair:
+                      description: Base pair for ERC20 token. 1 token will be equal to 1 unit of base pair. Transaction value will be calculated according to this base pair.
+                      maxLength: 30
+                      minLength: 2
+                      type: string
+                      example: EUR
+                      enum:
+                        - AED
+                        - AFN
+                        - ALL
+                        - AMD
+                        - ANG
+                        - AOA
+                        - ARS
+                        - AUD
+                        - AWG
+                        - AZN
+                        - BAM
+                        - BAT
+                        - BBD
+                        - BCH
+                        - BDT
+                        - BGN
+                        - BHD
+                        - BIF
+                        - BMD
+                        - BND
+                        - BOB
+                        - BRL
+                        - BSD
+                        - BTC
+                        - BTN
+                        - BWP
+                        - BYN
+                        - BYR
+                        - BZD
+                        - CAD
+                        - CDF
+                        - CHF
+                        - CLF
+                        - CLP
+                        - CNY
+                        - COP
+                        - CRC
+                        - CUC
+                        - CUP
+                        - CVE
+                        - CZK
+                        - DJF
+                        - DKK
+                        - DOP
+                        - DOGE
+                        - DZD
+                        - EGP
+                        - ERN
+                        - ETB
+                        - ETH
+                        - EUR
+                        - FJD
+                        - FKP
+                        - FLOW
+                        - FUSD
+                        - FREE
+                        - GMC
+                        - GMC_BSC
+                        - RMD
+                        - GBP
+                        - GEL
+                        - GGP
+                        - GHS
+                        - GIP
+                        - GMD
+                        - GNF
+                        - GTQ
+                        - GYD
+                        - HKD
+                        - HNL
+                        - HRK
+                        - HTG
+                        - HUF
+                        - IDR
+                        - ILS
+                        - IMP
+                        - INR
+                        - IQD
+                        - IRR
+                        - ISK
+                        - JEP
+                        - JMD
+                        - JOD
+                        - JPY
+                        - KES
+                        - KGS
+                        - KHR
+                        - KMF
+                        - KPW
+                        - KRW
+                        - KWD
+                        - KYD
+                        - KZT
+                        - LAK
+                        - LBP
+                        - LEO
+                        - LINK
+                        - LKR
+                        - LRD
+                        - LSL
+                        - LTC
+                        - LTL
+                        - LVL
+                        - LYD
+                        - MAD
+                        - MDL
+                        - MGA
+                        - MKD
+                        - MKR
+                        - MMK
+                        - MMY
+                        - MNT
+                        - MOP
+                        - MRO
+                        - MUR
+                        - MVR
+                        - MWK
+                        - MXN
+                        - MYR
+                        - MZN
+                        - NAD
+                        - NGN
+                        - NIO
+                        - NOK
+                        - NPR
+                        - NZD
+                        - OMR
+                        - PAB
+                        - PAX
+                        - PAXG
+                        - PEN
+                        - PGK
+                        - PHP
+                        - PKR
+                        - PLN
+                        - PLTC
+                        - PYG
+                        - QAR
+                        - RON
+                        - RSD
+                        - RUB
+                        - RWF
+                        - SAR
+                        - SBD
+                        - SCR
+                        - SDG
+                        - SEK
+                        - SGD
+                        - SHP
+                        - SLL
+                        - SOS
+                        - SRD
+                        - STD
+                        - SVC
+                        - SYP
+                        - SZL
+                        - THB
+                        - TJS
+                        - TMT
+                        - TND
+                        - TOP
+                        - TRY
+                        - TTD
+                        - TRON
+                        - TUSD
+                        - BUSD
+                        - TWD
+                        - TZS
+                        - UAH
+                        - UGX
+                        - UNI
+                        - USD
+                        - USDC
+                        - USDT
+                        - USDT_TRON
+                        - USDT_MATIC
+                        - QTUM
+                        - UYU
+                        - UZS
+                        - VEF
+                        - VND
+                        - VUV
+                        - WBTC
+                        - WST
+                        - XAF
+                        - XAG
+                        - XAU
+                        - XCD
+                        - XCON
+                        - XDR
+                        - XLM
+                        - XOF
+                        - XPF
+                        - XRP
+                        - YER
+                        - ZAR
+                        - ZMK
+                        - ZMW
+                        - ZWL
+                    baseRate:
+                      type: number
+                      example: 1
+                      default: 1
+                      minimum: 0
+                      description: Exchange rate of the base pair. Each unit of the created curency will represent value of baseRate*1 basePair.
+                    customer:
+                      properties:
+                        accountingCurrency:
+                          description: 'All transaction will be accounted in this currency for all accounts. Currency can be overridden per account level. If not set, EUR is used. ISO-4217'
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BYR
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DOGE
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - FLOW
+                            - FUSD
+                            - GBP
+                            - GEL
+                            - GGP
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - IMP
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JEP
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LTL
+                            - LVL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRO
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - STD
+                            - SVC
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XAG
+                            - XAU
+                            - XCD
+                            - XDR
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMK
+                            - ZMW
+                            - ZWL
+                          example: USD
+                          maxLength: 3
+                          minLength: 3
+                          type: string
+                        customerCountry:
+                          description: Country customer has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                        externalId:
+                          description: Customer external ID. Use only anonymized identification you have in your system. If customer with externalId does not exists new customer is created. If customer with specified externalId already exists it is updated.
+                          example: '123654'
+                          maxLength: 100
+                          minLength: 1
+                          type: string
+                        providerCountry:
+                          description: Country service provider has to be compliant with. ISO-3166-1
+                          example: US
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                      required:
+                        - externalId
+                      type: object
+                      description: If customer is filled then is created or updated.
+                    xpub:
+                      description: 'Extended public key (xpub), from which address, where all initial supply will be stored, will be generated. Either xpub and derivationIndex, or address must be present, not both.'
+                      maxLength: 150
+                      minLength: 1
+                      example: xpub6EsCk1uU6cJzqvP9CdsTiJwT2rF748YkPnhv5Qo8q44DG7nn2vbyt48YRsNSUYS44jFCW9gwvD9kLQu9AuqXpTpM1c5hgg9PsuBLdeNncid
+                      type: string
+                    derivationIndex:
+                      description: Derivation index for xpub to generate specific deposit address.
+                      format: int32
+                      example: 0
+                      type: integer
+                      maximum: 2147483647
+                    signatureId:
+                      type: string
+                      minLength: 36
+                      maxLength: 36
+                      format: uuid
+                      example: 26d3883e-4e17-48b3-a0ee-09a3e484ac83
+                      description: |
+                        Identifier of the mnemonic / private key associated in signing application.
+                        When hash identifies mnemonic, index must be present to represent specific account to pay from.
+                        Private key, mnemonic or signature Id must be present.
+                    nonce:
+                      type: number
+                      description: 'Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.'
+                      minimum: 0
+                  required:
+                    - description
+                    - supply
+                    - symbol
+                    - basePair
+                    - xpub
+                    - derivationIndex
+                    - signatureId
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - properties:
+                      accountId:
+                        description: Account ID with the type of currency as created ERC20/BEP20 token symbol. Account will be unfrozen when ERC20/BEP20 contract address will be set.
+                        type: string
+                        example: 5e68c66581f2ee32bc354087
+                      txId:
+                        description: TX hash of successful transaction. From this transaction receipt contract address can be obtained.
+                        example: c83f8818db43d9ba4accfe454aa44fc33123d47a4f89d47b314d6748eb0e9bc9
+                        type: string
+                    type: object
+                    required:
+                      - accountId
+                      - txId
+                  - properties:
+                      accountId:
+                        description: Account ID with the type of currency as created ERC20/BEP20 token symbol. Account will be unfrozen when ERC20/BEP20 contract address will be set.
+                        type: string
+                        example: 5e68c66581f2ee32bc354087
+                      signatureId:
+                        description: 'ID of prepared payment template to sign. This is should be stored on a client side to retrieve ID of the blockchain transaction, when signing application signs the transaction and broadcasts it to the blockchain.'
+                        format: uuid
+                        example: 1f7f7c0c-3906-4aa1-9dfe-4b67c43918f6
+                        type: string
+                    type: object
+                    required:
+                      - accountId
+                      - signatureId
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  errorCode:
+                    example: validation.failed
+                    description: validation.failed
+                    type: string
+                  message:
+                    example: Request validation failed. Please see data for additional information.
+                    description: Request validation failed. Please see data for additional information.
+                    type: string
+                  statusCode:
+                    example: 400
+                    description: '400'
+                    type: number
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - target
+                      properties:
+                        target:
+                          type: object
+                          additionalProperties: true
+                          description: Request object present in the body of the HTTP request
+                          example:
+                            property: 12345
+                        value:
+                          type: number
+                          description: 'Value of the target object which validation is wrong. Can be of any data type, example here is using type number.'
+                          example: 12345
+                        property:
+                          type: string
+                          description: Property name of the target object which validation is wrong
+                          example: property1
+                        constraints:
+                          type: object
+                          additionalProperties: true
+                          description: 'Object of failed constraints for the target object. Key is the constraint, value is detailed description of the failed constraint.'
+                          example:
+                            min: property1 must not be less than 50000
+                required:
+                  - errorCode
+                  - message
+                  - statusCode
+                  - data
+                type: object
+          description: Bad Request. Validation failed for the given object in the HTTP Body or Request parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - properties:
+                      errorCode:
+                        example: subscription.not.active
+                        description: subscription.not.active
+                        type: string
+                      message:
+                        example: Subscription not active anymore.
+                        description: Subscription not active anymore.
+                        type: string
+                      statusCode:
+                        example: 401
+                        description: '401'
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        example: subscription.invalid
+                        description: subscription.invalid
+                        type: string
+                      message:
+                        example: 'Unable to find valid subscription for ''${apiKey}'''
+                        description: 'Unable to find valid subscription for ''${apiKey}'''
+                        type: string
+                      statusCode:
+                        example: 401
+                        description: '401'
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+          description: Unauthorized. Not valid or inactive subscription key present in the HTTP Header.
+        '403':
+          description: 'Forbidden. The request is authenticated, but it is not possible to required perform operation due to logical error or invalid permissions.'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - properties:
+                      errorCode:
+                        description: erc20.symbol.prefix
+                        example: erc20.symbol.prefix
+                        type: string
+                      message:
+                        description: ERC20 token cannot start with VC_.
+                        example: ERC20 token cannot start with VC_.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: erc20.address.xpub.both
+                        example: erc20.address.xpub.both
+                        type: string
+                      message:
+                        description: 'Either xpub or address must be present, not both.'
+                        example: 'Either xpub or address must be present, not both.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: erc20.address.xpub.missing
+                        example: erc20.address.xpub.missing
+                        type: string
+                      message:
+                        description: Either xpub or address must be present.
+                        example: Either xpub or address must be present.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: erc20.duplicate.name
+                        example: erc20.duplicate.name
+                        type: string
+                      message:
+                        description: ERC20 token with given name already exists.
+                        example: ERC20 token with given name already exists.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: customer.not.active
+                        example: customer.not.active
+                        type: string
+                      message:
+                        description: Customer not active.
+                        example: Customer not active.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: virtual.creation.error
+                        example: virtual.creation.error
+                        type: string
+                      message:
+                        description: It is not possible to create virtual currency.
+                        example: It is not possible to create virtual currency.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: account.not.exists
+                        example: account.not.exists
+                        type: string
+                      message:
+                        description: No such account.
+                        example: No such account.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: account.xpub.missing
+                        example: account.xpub.missing
+                        type: string
+                      message:
+                        description: 'No xpub assigned to account, it is not possible to generate address. Use assignAddress method instead.'
+                        example: 'No xpub assigned to account, it is not possible to generate address. Use assignAddress method instead.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: xpub.used
+                        example: xpub.used
+                        type: string
+                      message:
+                        description: XPub already used registered within Tatum
+                        example: XPub already used registered within Tatum
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: Address.index.used
+                        example: address.index.used
+                        type: string
+                      message:
+                        description: 'Unable to create address, derivation index is already used.'
+                        example: 'Unable to create address, derivation index is already used.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: offchain.not.supported
+                        example: offchain.not.supported
+                        type: string
+                      message:
+                        description: 'Offchain not supported for account with ${account.currency} currency.'
+                        example: 'Offchain not supported for account with ${account.currency} currency.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: Address.generation.failed.wrong.xpub
+                        example: address.generation.failed.wrong.xpub
+                        type: string
+                      message:
+                        description: 'Unable to generate address, wrong xpub and account type.'
+                        example: 'Unable to generate address, wrong xpub and account type.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: Address.generation.failed
+                        example: address.generation.failed
+                        type: string
+                      message:
+                        description: Unable to generate address.
+                        example: Unable to generate address.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: vc.not.found
+                        example: vc.not.found
+                        type: string
+                      message:
+                        description: No such virtual currency.
+                        example: No such virtual currency.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: Address.used
+                        example: address.used
+                        type: string
+                      message:
+                        description: Address and currency already in use.
+                        example: Address and currency already in use.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: account.xpub.present
+                        example: account.xpub.present
+                        type: string
+                      message:
+                        description: 'Xpub assigned to account, it is not possible to assign address. Use generateAddress method instead.'
+                        example: 'Xpub assigned to account, it is not possible to assign address. Use generateAddress method instead.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: eth.erc20.unsupported
+                        example: eth.erc20.unsupported
+                        type: string
+                      message:
+                        description: Unsupported ETH ERC20 blockchain.
+                        example: Unsupported ETH ERC20 blockchain.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: ethereum.broadcast.failed
+                        example: ethereum.broadcast.failed
+                        type: string
+                      message:
+                        description: 'Unable to broadcast transaction due to ${error}.'
+                        example: 'Unable to broadcast transaction due to ${error}.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: gas.price.failed
+                        example: gas.price.failed
+                        type: string
+                      message:
+                        description: Unable to obtain current GAS price.
+                        example: Unable to obtain current GAS price.
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: ethereum.transaction.body
+                        example: ethereum.transaction.body
+                        type: string
+                      message:
+                        description: 'Either currency, or tokenAddress must be defined.'
+                        example: 'Either currency, or tokenAddress must be defined.'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: eth.transaction.gas
+                        example: eth.transaction.gas
+                        type: string
+                      message:
+                        description: 'Unable to calculate gas limit for transaction. ${error}'
+                        example: 'Unable to calculate gas limit for transaction. ${error}'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: eth.transaction.hash
+                        example: eth.transaction.hash
+                        type: string
+                      message:
+                        description: 'Unable to calculate transaction hash. ${error}'
+                        example: 'Unable to calculate transaction hash. ${error}'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+                  - properties:
+                      errorCode:
+                        description: eth.transaction.sign
+                        example: eth.transaction.sign
+                        type: string
+                      message:
+                        description: 'Unable to sign transaction. ${error}'
+                        example: 'Unable to sign transaction. ${error}'
+                        type: string
+                      statusCode:
+                        description: '403'
+                        example: 403
+                        type: number
+                    required:
+                      - errorCode
+                      - message
+                      - statusCode
+                    type: object
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    example: Internal server error
+                    description: Internal server error
+                    type: string
+                  statusCode:
+                    example: 500
+                    description: '500'
+                    type: number
+                required:
+                  - statusCode
+                  - message
+                type: object
+          description: Internal server error. There was an error on the server while processing the request.
+      security:
+        - X-Api-Key: []
+      summary: Deploy Klay ERC20 Smart Contract to Blockchain and Ledger
       tags:
         - Deploy blockchain token
   /v3/offchain/kcs/erc20/deploy:
