@@ -1,15 +1,13 @@
 openapi: 3.1.0
 info:
   contact: {}
-  title: Token deployment
+  title: Blockchain token
   version: 3.9.3
   x-logo:
     url: 'https://tatum.io/images/logo.svg'
     altText: Tatum
   description: |-
-      <p>Register and use Tatum Private Ledger's virtual currencies. You can create your own virtual currency and distribute it amongst your customers.<br/>
-      Virtual currencies are used to support FIAT currencies. When a virtual currency is created with basePair of the FIAT currency, it is possible to perform transactions in the private ledger in FIAT.
-      </p>
+      An endpoint to handle operations between Tatum Private Ledger and the blockchain, e.g. to create blockchain transactions from ledger accounts, create custom Ethereum ERC20 tokens, Stellar XLM, or Ripple XRP custom assets and register them as regular currency into the Tatum Private Ledger.
 servers:
   - url: 'https://api-eu1.tatum.io'
   - url: 'https://api-us-west1.tatum.io'
@@ -18,6 +16,8 @@ tags:
     name: Register token
   - description: ''
     name: Deploy token
+  - description: ''
+    name: Set contract address
 paths:
   /v3/offchain/ethereum/erc20:
     post:
@@ -17183,7 +17183,7 @@ paths:
         - X-Api-Key: []
       summary: Register new ONE HRM20 token in the ledger
       tags:
-        - Deploy token
+        - Register token
   /v3/offchain/one/hrm20/deploy:
     post:
       description: |
@@ -22534,7 +22534,7 @@ paths:
         - X-Api-Key: []
       summary: Set ERC20/BEP20/HRM20/TRC20/KCS20 token contract address
       tags:
-        - Deploy token
+        - Set contract address
   /v3/offchain/celo/erc20:
     post:
       deprecated: true
@@ -24295,7 +24295,7 @@ paths:
         - X-Api-Key: []
       summary: Register new Celo ERC-20 token in the ledger
       tags:
-        - Deploy token
+        - Register token
   /v3/offchain/celo/erc20/deploy:
     post:
       description: |
@@ -34684,7 +34684,7 @@ paths:
         - X-Api-Key: []
       summary: Set Celo ERC-20 token contract address
       tags:
-        - Deploy token
+        - Set contract address
   /v3/offchain/xlm/asset:
     post:
       description: |
@@ -36955,7 +36955,7 @@ paths:
         - X-Api-Key: []
       summary: Register new TRC-10/20 token in the ledger
       tags:
-        - Deploy token
+        - Register token
   /v3/offchain/tron/trc/deploy:
     post:
       description: |
@@ -40622,7 +40622,7 @@ paths:
         - X-Api-Key: []
       summary: Set TRC token contract address
       tags:
-        - Deploy token
+        - Set contract address
   /v3/offchain/algo/erc20/deploy:
     post:
       description: |
