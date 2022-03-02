@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Virtual Accounts",
+      "uri": "/docs/virtual-accounts.md"
+    },
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "Account services",
+      "uri": "/reference/Account.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Customer management services",
+      "uri": "/reference/Customer.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Transactions",
+      "uri": "/reference/Transactions.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Blockchain token",
+      "uri": "/reference/Blockchain token.yaml"
+    },
+
+    {
+      "type": "item",
+      "title": "Virtual currency",
+      "uri": "/reference/Virtual currency.yaml"
+    }
+  ]
+}
