@@ -19,9 +19,9 @@ tags:
   - description: ''
     name: List Ledger transcations
   - description: ''
-    name: Withdrawal
+    name: Withdrawal operations
   - description: ''
-    name: Blockchain transfer
+    name: Offchain withdrawal
 paths:
   /v3/ledger/transaction:
     post:
@@ -3515,7 +3515,7 @@ paths:
         - X-Api-Key: []
       summary: Estimate ledger to blockchain transaction fee
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/bitcoin/transfer:
     post:
       description: |
@@ -4403,7 +4403,7 @@ paths:
         - X-Api-Key: []
       summary: Send Bitcoin from Tatum account to address
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/bcash/transfer:
     post:
       description: |
@@ -5241,7 +5241,7 @@ paths:
         - X-Api-Key: []
       summary: Send Bitcoin Cash from Tatum account to address
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/litecoin/transfer:
     post:
       description: |
@@ -6114,7 +6114,7 @@ paths:
         - X-Api-Key: []
       summary: Send Litecoin from Tatum account to address
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/flow/transfer:
     post:
       description: |
@@ -6930,7 +6930,7 @@ paths:
         - X-Api-Key: []
       summary: Send Flow or FUSD from Tatum account to address
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/dogecoin/transfer:
     post:
       description: |
@@ -7803,7 +7803,7 @@ paths:
         - X-Api-Key: []
       summary: Send Dogecoin from Tatum account to address
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/ethereum/transfer:
     post:
       description: |
@@ -8647,7 +8647,7 @@ paths:
         - X-Api-Key: []
       summary: Send Ethereum from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/klaytn/transfer:
     post:
       description: |
@@ -9494,7 +9494,7 @@ paths:
         - X-Api-Key: []
       summary: Send KLAY or ERC-20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
 
   /v3/offchain/polygon/transfer:
     post:
@@ -10339,7 +10339,7 @@ paths:
         - X-Api-Key: []
       summary: Send MATIC from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/kcs/transfer:
     post:
       description: |
@@ -11183,7 +11183,7 @@ paths:
         - X-Api-Key: []
       summary: Send KCS or Erc20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/ethereum/erc20/transfer:
     post:
       description: |
@@ -12028,7 +12028,7 @@ paths:
         - X-Api-Key: []
       summary: Transfer Ethereum ERC20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/withdrawal:
     post:
       description: |
@@ -12070,7 +12070,7 @@ paths:
       operationId: storeWithdrawal
       summary: Store withdrawal
       tags:
-        - Withdrawal
+        - Withdrawal operations
       requestBody:
         content:
           application/json:
@@ -12617,7 +12617,7 @@ paths:
       operationId: GetWithdrawals
       summary: Get withdrawals
       tags:
-        - Withdrawal
+        - Withdrawal operations
       parameters:
         - description: Currency of the withdrawal
           in: query
@@ -12858,7 +12858,7 @@ paths:
       operationId: completeWithdrawal
       summary: Complete withdrawal
       tags:
-        - Withdrawal
+        - Withdrawal operations
       parameters:
         - description: ID of created withdrawal
           in: path
@@ -13046,7 +13046,7 @@ paths:
       operationId: cancelInProgressWithdrawal
       summary: Cancel withdrawal
       tags:
-        - Withdrawal
+        - Withdrawal operations
       parameters:
         - description: ID of created withdrawal
           in: path
@@ -13268,7 +13268,7 @@ paths:
       operationId: broadcastBlockchainTransaction
       summary: Broadcast signed transaction and complete withdrawal
       tags:
-        - Withdrawal
+        - Withdrawal operations
       requestBody:
         content:
           application/json:
@@ -14393,7 +14393,7 @@ paths:
         - X-Api-Key: []
       summary: Send BSC or BEP20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/xdc/transfer:
     post:
       description: |
@@ -15240,7 +15240,7 @@ paths:
         - X-Api-Key: []
       summary: Send XDC or ERC-20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/one/transfer:
     post:
       description: |
@@ -16096,7 +16096,7 @@ paths:
         - X-Api-Key: []
       summary: Send ONE or HRM-20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/celo/transfer:
     post:
       description: |
@@ -16967,7 +16967,7 @@ paths:
         - X-Api-Key: []
       summary: 'Send Celo, cUSD, cEUR or ERC-20 from Tatum ledger to blockchain'
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/solana/transfer:
     post:
       description: |
@@ -17463,7 +17463,7 @@ paths:
         - X-Api-Key: []
       summary: Send SOL from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/xlm/transfer:
     post:
       description: |
@@ -18003,7 +18003,7 @@ paths:
         - X-Api-Key: []
       summary: Send XLM / Asset from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/xrp/transfer:
     post:
       description: |
@@ -18620,7 +18620,7 @@ paths:
         - X-Api-Key: []
       summary: Send XRP from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/bnb/transfer:
     post:
       description: |
@@ -19204,7 +19204,7 @@ paths:
         - X-Api-Key: []
       summary: Send BNB from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/ada/transfer:
     post:
       description: |
@@ -19923,7 +19923,7 @@ paths:
         - X-Api-Key: []
       summary: Send ADA from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/tron/transfer:
     post:
       description: |
@@ -20748,7 +20748,7 @@ paths:
         - X-Api-Key: []
       summary: Send Tron or TRC asset from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/egld/transfer:
     post:
       description: |
@@ -21595,7 +21595,7 @@ paths:
         - X-Api-Key: []
       summary: Send EGLD from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
   /v3/offchain/algorand/transfer:
     post:
       description: |
@@ -22406,7 +22406,7 @@ paths:
         - X-Api-Key: []
       summary: Send ALGO or Erc20 from Tatum ledger to blockchain
       tags:
-        - Blockchain transfer
+        - Offchain withdrawal
 components:
   securitySchemes:
     X-Api-Key:
