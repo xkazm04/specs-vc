@@ -23,6 +23,46 @@ Every account has its own balance. Tatum supports 2 types of balances
 ### Virtual account currencies
 An account is always created with a specific currency. Once the currency is set, it cannot be changed.
 
+Table of supported currencies
+
+Symbol | Token name  | Supported chain
+---------|----------|---------
+ BADA | Cardano | BSC
+ BBCH | Bitcoin Cash | BSC
+ BBNB | Binance coin | BSC
+ BBTC | Bitcoin | BSC
+ BDOT | Polkadot | BSC
+ BETH | Ethereum  | BSC
+ BLTC | Litecoin | BSC
+ BUSD_BSC | Binance USD | BSC
+ BXRP| XRP | BSC
+ CAKE | Pancake Swap | BSC
+ GMC_BSC | GokuMarket Credit | BSC
+ ---------|----------|---------
+ BAT | Bat token| Ethereum
+ BUSD | Binance USD | Ethereum
+ ERC20 | - | Ethereum
+ MKR| Maker DAO | Ethereum
+ LINK | Chainlink | Ethereum
+ PAXG| Pax gold | Ethereum
+ SAND | Sandbox | Ethereum
+ REVV | Revv token| Ethereum
+ UNI | Uniswap | Ethereum
+ USDT | Tether | Ethereum
+ WBTC | Bitcoin | Ethereum
+ ---------|----------|---------
+  GAMEE | GAMEE| Polygon
+  MATIC_ETH | Ethereum | Polygon
+  USDC_MATIC | USD coin| Polygon
+  USDT_MATIC | Tether | Polygon
+ ---------|----------|---------
+  INRT_TRON | INR Token | Tron
+  USDT_TRON | Tether| Tron
+ ---------|----------|---------
+  LUNA_KRW | Terra KRW | Terra Luna
+  LUNA_USD| Terra USD| Terra Luna
+ ---------|----------|---------
+
 #### Extended public key - xpub
 When an account's currency is blockchain-based, like BTC or ETH, the account is usually created with xpub. Xpub represents an extended public key of the blockchain wallet, which will be connected to this account. Adding xpub to the account does not connect any specific blockchain address to this account. Xpub is just a generator of addresses, not an address itself.
 
