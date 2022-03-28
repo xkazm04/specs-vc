@@ -7,11 +7,11 @@ info:
     url: 'https://tatum.io/images/logo.svg'
     altText: Tatum
   description: |-
-      <p>An endpoint to handle operations in Tatum Ledger accounts and on the blockchain, generate blockchain addresses, and link them to accounts.<br/>
-      There are 2 main concepts within Tatum Ledger accounts and blockchains:
+      <p>An endpoint to handle operations in Tatum Virtual accounts and on the blockchain, generate blockchain addresses, and link them to accounts.<br/>
+      There are 2 main concepts within Tatum Virtual accounts and blockchains:
       <ul>
       <li>Tatum account with a generated blockchain address - customers can use Tatum's private ledger transactions, send funds to blockchain addresses, and receive funds from blockchain users.</li>
-      <li>Tatum account with no blockchain address generated - an account generated on the private ledger with a currency like BTC, but without a blockchain address associated with it. Customers can send and receive funds within Tatum Private Ledger and send assets to the blockchain. However, it is impossible to receive funds from the blockchain.</li>
+      <li>Tatum account with no blockchain address generated - an account generated on the private ledger with a currency like BTC, but without a blockchain address associated with it. Customers can send and receive funds within Tatum Private Virtual and send assets to the blockchain. However, it is impossible to receive funds from the blockchain.</li>
       </ul></p>
 servers:
   - url: 'https://api-eu1.tatum.io'
@@ -380,7 +380,7 @@ paths:
       description: |
         <h4>1 credit per API call.</h4><br/>
         <p>Get all deposit addresses generated for account. It is possible to deposit funds from another blockchain
-        address to any of associated addresses and they will be credited on the Tatum Ledger account connected to the address.</p>
+        address to any of associated addresses and they will be credited on the Tatum Virtual account connected to the address.</p>
       operationId: getAllDepositAddresses
       summary: Get all deposit addresses for account
       tags:
@@ -1165,7 +1165,7 @@ paths:
     delete:
       description: |
         <h4>1 credit per API call.</h4><br/>
-        <p>Remove blockchain address from the Ledger account. Tatum will not check for any incoming deposits on this address for this account.
+        <p>Remove blockchain address from the Virtual account. Tatum will not check for any incoming deposits on this address for this account.
         It will not be possible to generate the address in the future anymore.</p>
       operationId: removeAddress
       summary: Remove address for account
@@ -1581,7 +1581,7 @@ paths:
     post:
       description: |
         <h4>2 credits per API call.</h4><br/>
-        <p>Creates a new account for the customer. This will create an account on Tatum Private Ledger. It is possible to create an account for every supported cryptocurrency, FIAT, any ERC20 token created within a Tatum instance, and Tatum virtual currencies. When the customer field is already present, the account is added to the customer's list of accounts. If the customer field is not present, a new customer is created along with the account.<br/>
+        <p>Creates a new account for the customer. This will create an account on Tatum Private Virtual. It is possible to create an account for every supported cryptocurrency, FIAT, any ERC20 token created within a Tatum instance, and Tatum virtual currencies. When the customer field is already present, the account is added to the customer's list of accounts. If the customer field is not present, a new customer is created along with the account.<br/>
         Every account has its own balance. Tatum supports 2 types of balances - accountBalance and availableBalance. The account balance represents all assets in the account, both available and blocked. The available balance in the account represents account balance minus the blocked amount in the account. The available balance should be used to determine how much a customer can send or withdraw from the account.<br/>
         An account is always created with a specific currency. Once the currency is set, it cannot be changed.<br/>
         When an account's currency is blockchain-based, like BTC or ETH, the account is usually created with xpub. Xpub represents an extended public key of the blockchain wallet, which will be connected to this account. Adding xpub to the account does not connect any specific blockchain address to this account. Xpub is just a generator of addresses, not an address itself.
@@ -4439,7 +4439,7 @@ paths:
                   example: 1
                   default: 1
                   minimum: 0
-                  description: Exchange rate of the base pair. Only applicable for Tatum's Virtual currencies Ledger transactions. Override default exchange rate for the Virtual Currency.
+                  description: Exchange rate of the base pair. Only applicable for Tatum's Virtual currencies Virtual transactions. Override default exchange rate for the Virtual Currency.
                 senderNote:
                   description: Note visible to sender
                   example: Sender note
