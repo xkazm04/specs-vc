@@ -10,7 +10,7 @@ info:
       <p>An endpoint to handle operations in Tatum Virtual accounts and on the blockchain, generate blockchain addresses, and link them to accounts.<br/>
       There are 2 main concepts within Tatum Virtual accounts and blockchains:
       <ul>
-      <li>Tatum account with a generated blockchain address - customers can use Tatum's private ledger transactions, send funds to blockchain addresses, and receive funds from blockchain users.</li>
+      <li>Tatum account with a generated blockchain address - customers can use Tatum's Virtual account transactions, send funds to blockchain addresses, and receive funds from blockchain users.</li>
       <li>Tatum account with no blockchain address generated - an account generated on the private ledger with a currency like BTC, but without a blockchain address associated with it. Customers can send and receive funds within Tatum Private Virtual and send assets to the blockchain. However, it is impossible to receive funds from the blockchain.</li>
       </ul></p>
 servers:
@@ -552,7 +552,7 @@ paths:
     post:
       description: |
         <h4>2 credits per API call, 1 credit for every address created and 20 credits for each address registered for scanning every day. If address is FLOW or FUSD, additional 3000 credits are consumed for each address - see <a href="#operation/FlowGenerateAddress">Flow address generation.<a/></h4><br/>
-        <p>Create new deposit addressess for the account. This method associates public blockchain's ledger address with the account on Tatum's private ledger.<br/>
+        <p>Create new deposit addressess for the account. This method associates public blockchain's ledger address with the account on Tatum's Virtual account.<br/>
         It is possible to generate multiple blockchain addresses for the same ledger account. By this, it is possible to aggregate various blockchain transactions from different addresses into the same account.
         Depending on the currency of an account, this method will either generate a public address for Bitcoin, Bitcoin Cash,
         Litecoin or Ethereum, DestinationTag in case of XRP or message in case of XLM. More information about supported blockchains and address types can be found <a href="#operation/createAccount">here</a>.<br/>
@@ -4458,7 +4458,7 @@ paths:
               schema:
                 properties:
                   reference:
-                    description: 'Transaction internal reference - unique identifier within Tatum ledger. In order of failure, use this value to search for problems.'
+                    description: 'Transaction internal reference - unique identifier within Tatum Virtual account. In order of failure, use this value to search for problems.'
                     example: 0c64cc04-5412-4e57-a51c-ee5727939bcb
                     type: string
                 type: object
