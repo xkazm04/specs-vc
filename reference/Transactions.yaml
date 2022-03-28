@@ -19852,7 +19852,9 @@ paths:
                     - keyPair
                     - attr
                   type: object
+                  title: keyPair
                 - type: object
+                  title: mnemonic
                   properties:
                     address:
                       description: Blockchain address to send assets
@@ -19916,6 +19918,7 @@ paths:
                     - xpub
                     - index
                 - type: object
+                  title: signature
                   properties:
                     address:
                       description: Blockchain address to send assets to
