@@ -3624,6 +3624,7 @@ paths:
                     - mnemonic
                     - xpub
                   type: object
+                  title: Mnemonic
                 - properties:
                     senderAccountId:
                       description: Sender account ID
@@ -3703,6 +3704,7 @@ paths:
                     - keyPair
                     - attr
                   type: object
+                  title: KeyPair
                 - properties:
                     senderAccountId:
                       description: Sender account ID
@@ -3778,6 +3780,7 @@ paths:
                     - signatureId
                     - xpub
                   type: object
+                  title: signatureId
         required: true
       responses:
         '200':
