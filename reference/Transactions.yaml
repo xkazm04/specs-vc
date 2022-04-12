@@ -15,9 +15,9 @@ servers:
   - url: 'https://api-us-west1.tatum.io'
 tags:
   - description: ''
-    name: Virtual account transaction
+    name: Payments
   - description: ''
-    name: List Virtual account transcations
+    name: List transcations
   - description: ''
     name: Withdrawal operations
   - description: ''
@@ -36,7 +36,7 @@ paths:
       operationId: sendTransaction
       summary: Send payment
       tags:
-        - Virtual account transaction
+        - Payments
       requestBody:
         content:
           application/json:
@@ -519,7 +519,7 @@ paths:
       operationId: sendTransactionBatch
       summary: Send payment in batch
       tags:
-        - Virtual account transaction
+        - Payments
       requestBody:
         content:
           application/json:
@@ -1004,7 +1004,7 @@ paths:
       operationId: getTransactionsByAccountId
       summary: Find transactions for account.
       tags:
-        - List Virtual account transcations
+        - List transcations
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -1617,7 +1617,7 @@ paths:
       operationId: getTransactionsByCustomerId
       summary: Find transactions for a customer across all of the customer's accounts.
       tags:
-        - List Virtual account transcations
+        - List transcations
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -2236,7 +2236,7 @@ paths:
       operationId: getTransactions
       summary: Find transactions within the Virtual account.
       tags:
-        - List Virtual account transcations
+        - List transcations
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -2847,7 +2847,7 @@ paths:
       operationId: getTransactionsByReference
       summary: Find transactions with a given reference across all accounts.
       tags:
-        - List Virtual account transcations
+        - List transcations
       parameters:
         - in: path
           name: reference
