@@ -17,7 +17,7 @@ tags:
   - description: ''
     name: Payments
   - description: ''
-    name: List transcations
+    name: List transactions
   - description: ''
     name: Withdrawal operations
   - description: ''
@@ -1002,9 +1002,9 @@ paths:
     post:
       description: <h4>1 credit per API call.</h4><br/><p>Finds transactions for the account identified by the given account ID.</p>
       operationId: getTransactionsByAccountId
-      summary: Find transactions for account.
+      summary: Account transactions.
       tags:
-        - List transcations
+        - List transactions
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -1615,9 +1615,9 @@ paths:
     post:
       description: <h4>1 credit per API call.</h4><br/><p>Finds transactions for all accounts of the customer identified by the given internal customer ID.</p>
       operationId: getTransactionsByCustomerId
-      summary: Find transactions for a customer across all of the customer's accounts.
+      summary: Customer's accounts transactions
       tags:
-        - List transcations
+        - List transactions
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -2234,9 +2234,9 @@ paths:
     post:
       description: <h4>1 credit per API call.</h4><br/><p>Find transactions across whole ledger.</p>
       operationId: getTransactions
-      summary: Find transactions within the Virtual account.
+      summary: Virtual account transactions
       tags:
-        - List transcations
+        - List transactions
       parameters:
         - description: Max number of items per page is 50. Either count or pageSize is accepted.
           in: query
@@ -2845,9 +2845,9 @@ paths:
     get:
       description: <h4>1 credit per API call.</h4><br/><p>Finds transactions for all accounts with the given reference.</p>
       operationId: getTransactionsByReference
-      summary: Find transactions with a given reference across all accounts.
+      summary: Transactions with given reference
       tags:
-        - List transcations
+        - List transactions
       parameters:
         - in: path
           name: reference
